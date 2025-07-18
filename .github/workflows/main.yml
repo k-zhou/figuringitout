@@ -1,0 +1,18 @@
+on:
+  push:
+    branches:
+      - main
+jobs:
+  test-vars:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: 'Create env file public'
+        run: |
+          touch .env
+          echo PUBLIC_API_ENDPOINT=${{ vars.PUBLIC_API_ENDPOINT }} >> .env
+          echo NOT_A_SECRET=${{ secrets.NOT_A_SECRET }} >> .env
+          cat .env
+        working-directory: ./
