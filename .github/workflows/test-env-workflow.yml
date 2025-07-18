@@ -12,7 +12,11 @@ jobs:
       - name: 'Create env file public'
         run: |
           touch .env
-          echo PUBLIC_API_ENDPOINT=${{ vars.PUBLIC_API_ENDPOINT }} > .env
-          echo NOT_A_SECRET=${{ secrets.NOT_A_SECRET }} > .env
+          echo "PUBLIC_API_ENDPOINT="${{ vars.PUBLIC_API_ENDPOINT }} >> .env
+          echo "NOT_A_SECRET="${{ secrets.NOT_A_SECRET }} >> .env
+        working-directory: ./
+        
+      - name: "Inspect the file"
+        run: |
           cat .env
         working-directory: ./
